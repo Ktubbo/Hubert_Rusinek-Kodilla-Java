@@ -2,38 +2,37 @@ package com.kodilla.testing.shape;
 
 import java.util.Objects;
 
-public class Trapeze implements Shape{
+public class Square implements Shape{
 
     private int a;
-    private int b;
-    private int h;
 
-    public Trapeze(int a, int b, int h){
+    public Square(int a){
         this.a = a;
-        this.b = b;
-        this.h = h;
     }
 
     public String getShapeName(){
-        return "Trapeze";
+        return "Square";
     }
 
     public double getField() {
-        return (this.a+this.b)*this.h/2;
+        return this.a*this.a;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Trapeze trapeze = (Trapeze) o;
-        return a == trapeze.a &&
-                b == trapeze.b &&
-                h == trapeze.h;
+        Square square = (Square) o;
+        return a == square.a;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(a, b, h);
+        return Objects.hash(a);
+    }
+
+    @Override
+    public String toString() {
+        return "Square";
     }
 }

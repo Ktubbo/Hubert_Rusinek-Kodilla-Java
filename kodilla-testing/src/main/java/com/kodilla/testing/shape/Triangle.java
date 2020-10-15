@@ -33,4 +33,9 @@ public class Triangle implements Shape{
     public int hashCode() {
         return Objects.hash(a, h);
     }
+
+    @Override
+    public String toString() {
+        return "Triangle";
+    }
 }

@@ -2,36 +2,37 @@ package com.kodilla.testing.shape;
 
 import java.util.Objects;
 
-public class Rectangle implements Shape{
+public class Circle implements Shape{
 
-    private int a;
-    private int b;
+    private int r;
 
-    public Rectangle(int a, int b){
-        this.a = a;
-        this.b = b;
+    public Circle(int r){
+        this.r = r;
     }
 
     public String getShapeName(){
-        return "Rectangle";
+        return "Circle";
     }
 
     public double getField() {
-        return this.a*this.b;
+        return this.r*this.r*3.14;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Rectangle rectangle = (Rectangle) o;
-        return a == rectangle.a &&
-                b == rectangle.b;
+        Circle circle = (Circle) o;
+        return r == circle.r;
     }
-
 
     @Override
     public int hashCode() {
-        return Objects.hash(a, b);
+        return Objects.hash(r);
+    }
+
+    @Override
+    public String toString() {
+        return "Circle";
     }
 }
