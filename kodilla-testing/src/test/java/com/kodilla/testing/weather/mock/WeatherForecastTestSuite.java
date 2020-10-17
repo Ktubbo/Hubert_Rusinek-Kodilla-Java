@@ -64,11 +64,7 @@ class WeatherForecastTestSuite {
         WeatherForecast weatherForecast = new WeatherForecast(temperaturesMock);
 
         //When
-        double sumOfTemperatures = 0;
-        for (Map.Entry<String, Double> temperatures : temperaturesMock.getTemperatures().entrySet()) {
-            sumOfTemperatures = sumOfTemperatures + temperatures.getValue();
-        }
-        double meanOfTemperatures = sumOfTemperatures/temperaturesMock.getTemperatures().size();
+        double meanOfTemperatures = weatherForecast.calculateMeanTemperature(temperaturesMock.getTemperatures());
 
         //Then
         Assertions.assertEquals(25.56,meanOfTemperatures);
@@ -76,24 +72,12 @@ class WeatherForecastTestSuite {
 
     @DisplayName("Test: Calculate Median of Temperatures with Mock")
     @Test
-    void testCalculateMedianTemperatureWithMock(){
+    void testCalculateMedianOfTemperatureWithMock(){
         //Given
-        List<Double> listOfTemp = new ArrayList();
-        for (Map.Entry<String, Double> m : temperaturesMock.getTemperatures().entrySet()) {
-            listOfTemp.add(m.getValue());
-        }
-        Collections.sort(listOfTemp);
-        double median=0;
+        WeatherForecast weatherForecast = new WeatherForecast(temperaturesMock);
 
         //When
-        if(listOfTemp.size() % 2 == 0){
-            int element1 = listOfTemp.size()/2;
-            int element2 = (listOfTemp.size()/2) + 1;
-            median = (((double)listOfTemp.get(element1) + (double)listOfTemp.get(element2))/2)-1;
-        } else {
-            int midElement = (listOfTemp.size()+1)/2;
-            median = (double)listOfTemp.get(midElement-1);
-        }
+        double median = weatherForecast.calculateMedianOfTemperature(temperaturesMock.getTemperatures());
 
         //Then
         Assertions.assertEquals(25.5,median);
