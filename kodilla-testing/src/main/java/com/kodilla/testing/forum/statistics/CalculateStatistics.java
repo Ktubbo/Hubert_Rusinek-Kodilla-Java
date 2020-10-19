@@ -9,58 +9,46 @@ public class CalculateStatistics{
     List<String> usersNames = new ArrayList<>();
     int postsCount;
     int commentsCount;
+    double postPerUser;
+    double commentsPerUser;
+    double commentsPerPost;
 
-    public CalculateStatistics(List<String> usersNames, int postsCount, int commentsCount) {
-        this.usersNames = usersNames;
-        this.postsCount = postsCount;
-        this.commentsCount = commentsCount;
-    }
 
-    public List<String> getUsersNames() {
-        return usersNames;
-    }
+    public void calculateAdvStatistics(Statistics statistics) {
 
-    public int getPostsCount() {
-        return postsCount;
-    }
+        usersNames = statistics.usersNames();
+        postsCount = statistics.postsCount();
+        commentsCount = statistics.commentsCount();
 
-    public int getCommentsCount() {
-        return commentsCount;
-    }
-
-    public ForumStatistics calculateAdvStatistics(Statistics statistics) {
-
-        int usersCount = getUsersNames().size();
-        int postsCount = getPostsCount();
-        int commentsCount = getCommentsCount();
-
-        double postsPerUser = 0;
-        if (usersCount != 0) {
-            postsPerUser = (double)postsCount / (double)usersCount;
+        double resultPostsPerUser = 0;
+        if (usersNames.size() != 0) {
+            resultPostsPerUser = (double) postsCount / (double) usersNames.size();
         }
+        postPerUser = resultPostsPerUser;
 
-        double commentsPerUser = 0;
-        if (usersCount != 0) {
-            commentsPerUser = (double)commentsCount / (double)usersCount;
+        double resultCommentsPerUser = 0;
+        if (usersNames.size() != 0) {
+            resultCommentsPerUser = (double)commentsCount / (double)usersNames.size();
         }
+        commentsPerUser = resultCommentsPerUser;
 
-        double commentsPerPost = 0;
+        double resultCommentsPerPost = 0;
         if (postsCount != 0) {
-            commentsPerPost = (double)commentsCount / (double)postsCount;
+            resultCommentsPerPost = (double)commentsCount / (double)postsCount;
         }
-        return new ForumStatistics(usersCount,postsCount,commentsCount,postsPerUser,commentsPerUser,commentsPerPost);
+        commentsPerPost = resultCommentsPerPost;
     }
+
 
     public void showStatistics() {
-        CalculateStatistics calculateStatistics = new CalculateStatistics(usersNames,postsCount,commentsCount);
-        ForumStatistics forumStatistics = calculateStatistics.calculateAdvStatistics(statistics);
+        CalculateStatistics calculateStatistics = new CalculateStatistics();
 
-        System.out.println("Users count: " + forumStatistics.getUsersCount() + "\n" +
-                "Posts count: " + forumStatistics.getPostCount() + "\n" +
-                "Comments count: " + forumStatistics.getCommentsCount() + "\n" +
-                "Posts per User: " + forumStatistics.getPostsPerUser() + "\n" +
-                "Comments per User: " + forumStatistics.getCommentsPerUser() + "\n" +
-                "Comments per Post: " + forumStatistics.getCommentsPerPost());
+        System.out.println("Users count: " + usersNames.size() + "\n" +
+                "Posts count: " + postsCount + "\n" +
+                "Comments count: " + commentsCount + "\n" +
+                "Posts per User: " + postPerUser + "\n" +
+                "Comments per User: " + commentsPerUser + "\n" +
+                "Comments per Post: " + commentsPerPost);
 
     }
 }

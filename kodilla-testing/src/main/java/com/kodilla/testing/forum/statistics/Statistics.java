@@ -7,8 +7,8 @@ public interface Statistics {
     int postsCount();          // total quantity of forum posts
     int commentsCount();       // total quantity of forum comments
 
-    List<String> getUsersName();
-    int getPostsCount();
-    int getCommentsCount();
+    double postsPerUser();
+    double commentsPerUser();
+    double commentsPerPost();
 
 }

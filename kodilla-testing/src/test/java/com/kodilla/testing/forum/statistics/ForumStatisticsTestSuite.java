@@ -47,122 +47,122 @@ public class ForumStatisticsTestSuite{
     public void beforeEachTest(){
         testCounter++;
         System.out.println("Preparing to execute test #" + testCounter);
-        when(statisticsMock.getPostsCount()).thenReturn(10);
-        when(statisticsMock.getUsersName()).thenReturn(generateListOfNUsers(10));
-        when(statisticsMock.getCommentsCount()).thenReturn(1000);
+        when(statisticsMock.postsCount()).thenReturn(10);
+        when(statisticsMock.usersNames()).thenReturn(generateListOfNUsers(10));
+        when(statisticsMock.commentsCount()).thenReturn(1000);
     }
 
     @Test
     public void test0PostsCount(){
         //Given
-        when(statisticsMock.getPostsCount()).thenReturn(0);
-        CalculateStatistics calculateStatistics = new CalculateStatistics(statisticsMock.getUsersName(),statisticsMock.getPostsCount(),statisticsMock.getCommentsCount());
+        CalculateStatistics calculateStatistics = new CalculateStatistics();
+        when(statisticsMock.postsCount()).thenReturn(0);
 
         //When
-        ForumStatistics forumStatistics = calculateStatistics.calculateAdvStatistics(statisticsMock);
+        calculateStatistics.calculateAdvStatistics(statisticsMock);
         calculateStatistics.showStatistics();
 
         //Then
-        Assertions.assertEquals(0,forumStatistics.getPostsPerUser());
-        Assertions.assertEquals(100,forumStatistics.getCommentsPerUser());
-        Assertions.assertEquals(0,forumStatistics.getCommentsPerPost());
+        Assertions.assertEquals(0,calculateStatistics.postPerUser);
+        Assertions.assertEquals(100,calculateStatistics.commentsPerUser);
+        Assertions.assertEquals(0,calculateStatistics.commentsPerPost);
     }
 
     @Test
     public void test1000PostsCount(){
         //Given
-        when(statisticsMock.getPostsCount()).thenReturn(1000);
-        CalculateStatistics calculateStatistics = new CalculateStatistics(statisticsMock.getUsersName(),statisticsMock.getPostsCount(),statisticsMock.getCommentsCount());
+        when(statisticsMock.postsCount()).thenReturn(1000);
+        CalculateStatistics calculateStatistics = new CalculateStatistics();
 
         //When
-        ForumStatistics forumStatistics = calculateStatistics.calculateAdvStatistics(statisticsMock);
+        calculateStatistics.calculateAdvStatistics(statisticsMock);
         calculateStatistics.showStatistics();
 
         //Then
-        Assertions.assertEquals(100,forumStatistics.getPostsPerUser());
-        Assertions.assertEquals(100,forumStatistics.getCommentsPerUser());
-        Assertions.assertEquals(1,forumStatistics.getCommentsPerPost());
+        Assertions.assertEquals(100,calculateStatistics.postPerUser);
+        Assertions.assertEquals(100,calculateStatistics.commentsPerUser);
+        Assertions.assertEquals(1,calculateStatistics.commentsPerPost);
     }
 
     @Test
     public void test0CommentsCount(){
         //Given
-        when(statisticsMock.getCommentsCount()).thenReturn(0);
-        CalculateStatistics calculateStatistics = new CalculateStatistics(statisticsMock.getUsersName(),statisticsMock.getPostsCount(),statisticsMock.getCommentsCount());
+        when(statisticsMock.commentsCount()).thenReturn(0);
+        CalculateStatistics calculateStatistics = new CalculateStatistics();
 
         //When
-        ForumStatistics forumStatistics = calculateStatistics.calculateAdvStatistics(statisticsMock);
+        calculateStatistics.calculateAdvStatistics(statisticsMock);
         calculateStatistics.showStatistics();
 
         //Then
-        Assertions.assertEquals(1,forumStatistics.getPostsPerUser());
-        Assertions.assertEquals(0,forumStatistics.getCommentsPerUser());
-        Assertions.assertEquals(0,forumStatistics.getCommentsPerPost());
+        Assertions.assertEquals(1,calculateStatistics.postPerUser);
+        Assertions.assertEquals(0,calculateStatistics.commentsPerUser);
+        Assertions.assertEquals(0,calculateStatistics.commentsPerPost);
     }
 
     @Test
     public void testMorePostsThanComments(){
         //Given
-        when(statisticsMock.getCommentsCount()).thenReturn(100);
-        when(statisticsMock.getPostsCount()).thenReturn(1000);
-        CalculateStatistics calculateStatistics = new CalculateStatistics(statisticsMock.getUsersName(),statisticsMock.getPostsCount(),statisticsMock.getCommentsCount());
+        when(statisticsMock.commentsCount()).thenReturn(100);
+        when(statisticsMock.postsCount()).thenReturn(1000);
+        CalculateStatistics calculateStatistics = new CalculateStatistics();
 
         //When
-        ForumStatistics forumStatistics = calculateStatistics.calculateAdvStatistics(statisticsMock);
+        calculateStatistics.calculateAdvStatistics(statisticsMock);
         calculateStatistics.showStatistics();
 
         //Then
-        Assertions.assertEquals(100,forumStatistics.getPostsPerUser());
-        Assertions.assertEquals(10,forumStatistics.getCommentsPerUser());
-        Assertions.assertEquals(0.1,forumStatistics.getCommentsPerPost());
+        Assertions.assertEquals(100,calculateStatistics.postPerUser);
+        Assertions.assertEquals(10,calculateStatistics.commentsPerUser);
+        Assertions.assertEquals(0.1,calculateStatistics.commentsPerPost);
     }
 
     @Test
     public void testMoreCommentsThanPosts(){
         //Given
-        when(statisticsMock.getCommentsCount()).thenReturn(1000);
-        when(statisticsMock.getPostsCount()).thenReturn(100);
-        CalculateStatistics calculateStatistics = new CalculateStatistics(statisticsMock.getUsersName(),statisticsMock.getPostsCount(),statisticsMock.getCommentsCount());
+        when(statisticsMock.commentsCount()).thenReturn(1000);
+        when(statisticsMock.postsCount()).thenReturn(100);
+        CalculateStatistics calculateStatistics = new CalculateStatistics();
 
         //When
-        ForumStatistics forumStatistics = calculateStatistics.calculateAdvStatistics(statisticsMock);
+        calculateStatistics.calculateAdvStatistics(statisticsMock);
         calculateStatistics.showStatistics();
 
         //Then
-        Assertions.assertEquals(10,forumStatistics.getPostsPerUser());
-        Assertions.assertEquals(100,forumStatistics.getCommentsPerUser());
-        Assertions.assertEquals(10,forumStatistics.getCommentsPerPost());
+        Assertions.assertEquals(10,calculateStatistics.postPerUser);
+        Assertions.assertEquals(100,calculateStatistics.commentsPerUser);
+        Assertions.assertEquals(10,calculateStatistics.commentsPerPost);
     }
 
     @Test
     public void test0UsersCount(){
         //Given
-        when(statisticsMock.getUsersName()).thenReturn(generateListOfNUsers(0));
-        CalculateStatistics calculateStatistics = new CalculateStatistics(statisticsMock.getUsersName(),statisticsMock.getPostsCount(),statisticsMock.getCommentsCount());
+        when(statisticsMock.usersNames()).thenReturn(generateListOfNUsers(0));
+        CalculateStatistics calculateStatistics = new CalculateStatistics();
 
         //When
-        ForumStatistics forumStatistics = calculateStatistics.calculateAdvStatistics(statisticsMock);
+        calculateStatistics.calculateAdvStatistics(statisticsMock);
         calculateStatistics.showStatistics();
 
         //Then
-        Assertions.assertEquals(0,forumStatistics.getPostsPerUser());
-        Assertions.assertEquals(0,forumStatistics.getCommentsPerUser());
-        Assertions.assertEquals(100,forumStatistics.getCommentsPerPost());
+        Assertions.assertEquals(0,calculateStatistics.postPerUser);
+        Assertions.assertEquals(0,calculateStatistics.commentsPerUser);
+        Assertions.assertEquals(100,calculateStatistics.commentsPerPost);
     }
 
     @Test
     public void test100UsersCount(){
         //Given
-        when(statisticsMock.getUsersName()).thenReturn(generateListOfNUsers(100));
-        CalculateStatistics calculateStatistics = new CalculateStatistics(statisticsMock.getUsersName(),statisticsMock.getPostsCount(),statisticsMock.getCommentsCount());
+        when(statisticsMock.usersNames()).thenReturn(generateListOfNUsers(100));
+        CalculateStatistics calculateStatistics = new CalculateStatistics();
 
         //When
-        ForumStatistics forumStatistics = calculateStatistics.calculateAdvStatistics(statisticsMock);
+        calculateStatistics.calculateAdvStatistics(statisticsMock);
         calculateStatistics.showStatistics();
 
         //Then
-        Assertions.assertEquals(0.1,forumStatistics.getPostsPerUser());
-        Assertions.assertEquals(10,forumStatistics.getCommentsPerUser());
-        Assertions.assertEquals(100,forumStatistics.getCommentsPerPost());
+        Assertions.assertEquals(0.1,calculateStatistics.postPerUser);
+        Assertions.assertEquals(10,calculateStatistics.commentsPerUser);
+        Assertions.assertEquals(100,calculateStatistics.commentsPerPost);
     }
 }
