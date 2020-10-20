@@ -41,8 +41,6 @@ public class CalculateStatistics{
 
 
     public void showStatistics() {
-        CalculateStatistics calculateStatistics = new CalculateStatistics();
-
         System.out.println("Users count: " + usersNames.size() + "\n" +
                 "Posts count: " + postsCount + "\n" +
                 "Comments count: " + commentsCount + "\n" +
