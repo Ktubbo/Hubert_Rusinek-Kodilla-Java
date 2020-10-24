@@ -5,8 +5,13 @@ import com.kodilla.symbols.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+import java.util.Scanner;
 
 public class Prepare {
+
+    Scanner scan = new Scanner(System.in);
+    String name;
+
     public void showControls(){
 
         System.out.println("Press 1 to pick ROCK\n" +
@@ -46,5 +51,16 @@ public class Prepare {
         if(x==7) { index = symbol.winsWith()[1];} //another 12,5% for lose
         return index;
     }
+
+    public void startOfGame(){
+        System.out.println("\n!!! WELCOME IN RPS GAME !!!\n");
+        System.out.println("PLEASE ENTER YOUR NAME: ");
+        name = scan.nextLine();
+    }
+
+    public String getName(){
+        return name;
+    }
+
 
 }
