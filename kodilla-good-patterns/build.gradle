@@ -1,22 +1,14 @@
 plugins {
-	id 'org.springframework.boot' version '2.4.0'
-	id 'io.spring.dependency-management' version '1.0.10.RELEASE'
-	id 'java'
+    id 'java'
 }
 
-group = 'com.kodilla.good.patterns'
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '11'
+group 'com.kodilla'
+version '0.0.1-SNAPSHOT'
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-}
-
-test {
-	useJUnitPlatform()
+    testCompile group: 'junit', name: 'junit', version: '4.12'
 }

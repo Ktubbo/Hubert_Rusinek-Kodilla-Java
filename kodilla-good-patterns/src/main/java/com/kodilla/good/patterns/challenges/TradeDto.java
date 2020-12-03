@@ -1,9 +1,9 @@
-package main.java.com.kodilla.good.patterns.challenges.ProductOrderService;
+package com.kodilla.good.patterns.challenges;
 
 public class TradeDto {
 
-    public Item item;
-    public boolean isTraded;
+    private Item item;
+    private boolean isTraded;
 
     public TradeDto(final Item item, final boolean isTraded) {
         this.item = item;

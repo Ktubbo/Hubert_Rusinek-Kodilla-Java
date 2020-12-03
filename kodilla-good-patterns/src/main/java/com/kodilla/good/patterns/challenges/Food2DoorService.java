@@ -1,15 +1,8 @@
-package main.java.com.kodilla.good.patterns.challenges;
-
-interface Producer{
-    public boolean process();
-}
-
-class OrderDto(){
-
-
-
-
-}
+package com.kodilla.good.patterns.challenges;
 
 public class Food2DoorService {
+
+
+
+
 }

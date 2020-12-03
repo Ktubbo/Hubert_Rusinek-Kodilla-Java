@@ -1,4 +1,4 @@
-package main.java.com.kodilla.good.patterns.challenges.ProductOrderService;
+package com.kodilla.good.patterns.challenges;
 
 public class User {
 
@@ -16,5 +16,13 @@ public class User {
 
     public String getSurname() {
         return surname;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                '}';
     }
 }

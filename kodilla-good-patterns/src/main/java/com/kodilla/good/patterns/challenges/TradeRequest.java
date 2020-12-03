@@ -1,4 +1,4 @@
-package main.java.com.kodilla.good.patterns.challenges.ProductOrderService;
+package com.kodilla.good.patterns.challenges;
 
 public class TradeRequest {
 
@@ -22,5 +22,14 @@ public class TradeRequest {
 
     public Item getItem() {
         return item;
+    }
+
+    @Override
+    public String toString() {
+        return "TradeRequest{" +
+                "seller=" + seller +
+                ", buyer=" + buyer +
+                ", item=" + item +
+                '}';
     }
 }

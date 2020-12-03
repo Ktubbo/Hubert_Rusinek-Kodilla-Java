@@ -1,4 +1,4 @@
-package main.java.com.kodilla.good.patterns.challenges.ProductOrderService;
+package com.kodilla.good.patterns.challenges;
 
 public class ProductOrderService {
 
@@ -15,12 +15,11 @@ public class ProductOrderService {
     }
 
     public TradeDto process(final TradeRequest tradeRequest) {
-        boolean isTraded = tradingService.trade(tradeRequest.getSeller(), tradeRequest.getBuyer(),
-                tradeRequest.getItem());
+        boolean isTraded = tradingService.trade(tradeRequest);
 
         if (isTraded) {
-            informationService.inform(tradeRequest.getSeller(), tradeRequest.getBuyer());
-            tradingRepository.createTrade(tradeRequest.getSeller(), tradeRequest.getBuyer(), tradeRequest.getItem());
+            informationService.inform(tradeRequest);
+            tradingRepository.createTrade(tradeRequest);
             return new TradeDto(tradeRequest.getItem(), true);
         } else {
             return new TradeDto(tradeRequest.getItem(), false);
