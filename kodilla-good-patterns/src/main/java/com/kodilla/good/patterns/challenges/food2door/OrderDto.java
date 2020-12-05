@@ -1,6 +1,6 @@
-package com.kodilla.good.patterns.challenges;
+package com.kodilla.good.patterns.challenges.food2door;
 
-class OrderDto {
+public class OrderDto {
 
     private Order order;
     private boolean isOrdered;

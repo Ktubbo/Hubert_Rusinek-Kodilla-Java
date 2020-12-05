@@ -1,6 +1,6 @@
-package com.kodilla.good.patterns.challenges;
+package com.kodilla.good.patterns.challenges.food2door;
 
-interface Producer {
+public interface Producer {
 
     static OrderDto commonProcess(Order order){
 

@@ -1,4 +1,4 @@
-package com.kodilla.good.patterns.challenges;
+package com.kodilla.good.patterns.challenges.flightapp;
 
 import java.util.Objects;
 
@@ -18,15 +18,6 @@ class Flight {
 
     public Airport getTo() {
         return to;
-    }
-
-    @Override
-    public int hashCode() {
-        int a = from.getUniqueID().charAt(0);
-        int b = from.getUniqueID().charAt(1);
-        int c = to.getUniqueID().charAt(0);
-        int d = to.getUniqueID().charAt(1);
-        return a * 1000000 + b * 10000 + c * 100 + d;
     }
 
     @Override

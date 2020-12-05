@@ -1,4 +1,4 @@
-package com.kodilla.good.patterns.challenges;
+package com.kodilla.good.patterns.challenges.flightapp;
 
 import java.util.*;
 import java.lang.*;
