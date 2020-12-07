@@ -28,6 +28,11 @@ class Flight {
     }
 
     @Override
+    public int hashCode() {
+        return Objects.hash(from, to);
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -35,4 +40,6 @@ class Flight {
         return Objects.equals(from, flight.from) &&
                 Objects.equals(to, flight.to);
     }
+
+
 }
