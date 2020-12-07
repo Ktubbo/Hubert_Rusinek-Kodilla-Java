@@ -17,16 +17,19 @@ class Airport {
     public String getName() { return name; }
     public String getUniqueID() { return uniqueID; }
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Airport airport = (Airport) o;
-        return Objects.equals(name, airport.name) &&
-                Objects.equals(uniqueID, airport.uniqueID);
+        return name.equals(airport.name) &&
+                uniqueID.equals(airport.uniqueID);
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, uniqueID);
+    }
 
     @Override
     public String toString() {

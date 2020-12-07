@@ -1,26 +1,23 @@
 package com.kodilla.good.patterns.challenges.flightapp;
 
-import java.awt.*;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class FindFlight {
 
     FlightMap flights = new FlightMap();
-    Map<Integer,Flight> flightMap = flights.getFlightMap();
+    List<Flight> flightList = flights.getFlightList();
 
     public void findFrom(Airport a) {
 
         System.out.println("\nFind from: \n");
-        List<Map.Entry<Integer,Flight>> flightList = flightMap.entrySet()
-                .stream()
-                .filter(e -> e.getValue().getFrom().equals(a))
+        List<Flight> flightList = this.flightList.stream()
+                .filter(e -> e.getFrom().equals(a))
                 .collect(Collectors.toList());
         if(!flightList.isEmpty()){
-            for(Map.Entry entry: flightList){
-                System.out.println(flightMap.get(entry.getKey()));
+            for(Flight flight: flightList){
+                System.out.println(flight);
             }
         } else {
             System.out.println("There is no such flight.");
@@ -29,13 +26,12 @@ public class FindFlight {
 
     public void findTo(Airport a) {
         System.out.println("\nFind to: \n");
-        List<Map.Entry<Integer,Flight>> flightList = flightMap.entrySet()
-                .stream()
-                .filter(e -> e.getValue().getTo().equals(a))
+        List<Flight> flightList = this.flightList.stream()
+                .filter(e -> e.getTo().equals(a))
                 .collect(Collectors.toList());
         if(!flightList.isEmpty()){
-            for(Map.Entry entry: flightList){
-                System.out.println(flightMap.get(entry.getKey()));
+            for(Flight flight: flightList){
+                System.out.println(flight);
             }
         } else {
             System.out.println("There is no such flight.");
@@ -46,28 +42,26 @@ public class FindFlight {
 
         System.out.println("\nFind through: \n");
 
-        List<Map.Entry<Integer,Flight>> flightListA =
-                flightMap.entrySet()
-                .stream()
-                .filter(e->e.getValue().getFrom().equals(a))
-                .filter(e->e.getValue().getTo().equals(b))
+        List<Flight> flightListA =
+                flightList.stream()
+                .filter(e->e.getFrom().equals(a))
+                .filter(e->e.getTo().equals(b))
                 .collect(Collectors.toList());
 
-        List<Map.Entry<Integer,Flight>> flightListB =
-                flightMap.entrySet()
-                .stream()
-                .filter(e->e.getValue().getFrom().equals(b))
-                .filter(e->e.getValue().getTo().equals(c))
+        List<Flight> flightListB =
+                flightList.stream()
+                .filter(e->e.getFrom().equals(b))
+                .filter(e->e.getTo().equals(c))
                 .collect(Collectors.toList());
 
         if(!(flightListA.isEmpty() || flightListB.isEmpty())){
 
-            for(Map.Entry entry: flightListA){
-                System.out.println(flightMap.get(entry.getKey()));
+            for(Flight flight: flightListA){
+                System.out.println(flight);
             }
 
-            for(Map.Entry entry: flightListB){
-                System.out.println(flightMap.get(entry.getKey()));
+            for(Flight flight: flightListB){
+                System.out.println(flight);
             }
 
         } else {
