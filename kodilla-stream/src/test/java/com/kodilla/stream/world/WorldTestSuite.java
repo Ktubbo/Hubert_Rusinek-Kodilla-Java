@@ -1,8 +1,8 @@
 package com.kodilla.stream.world;
 
-import com.kodilla.stream.sand.SandStorage;
-import org.junit.Test;
+
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

@@ -1,7 +1,7 @@
 package com.kodilla.stream.array;
 
-import org.testng.annotations.Test;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public class ArrayOperationsTestSuite {
 

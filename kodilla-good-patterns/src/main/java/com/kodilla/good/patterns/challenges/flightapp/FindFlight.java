@@ -2,17 +2,18 @@ package com.kodilla.good.patterns.challenges.flightapp;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class FindFlight {
 
     FlightMap flights = new FlightMap();
-    List<Flight> flightList = flights.getFlightList();
+    Set<Flight> flightSet = flights.getFlightSet();
 
     public void findFrom(Airport a) {
 
         System.out.println("\nFind from: \n");
-        List<Flight> flightList = this.flightList.stream()
+        List<Flight> flightList = this.flightSet.stream()
                 .filter(e -> e.getFrom().equals(a))
                 .collect(Collectors.toList());
         if(!flightList.isEmpty()){
@@ -26,7 +27,7 @@ public class FindFlight {
 
     public void findTo(Airport a) {
         System.out.println("\nFind to: \n");
-        List<Flight> flightList = this.flightList.stream()
+        List<Flight> flightList = this.flightSet.stream()
                 .filter(e -> e.getTo().equals(a))
                 .collect(Collectors.toList());
         if(!flightList.isEmpty()){
@@ -43,13 +44,13 @@ public class FindFlight {
         System.out.println("\nFind through: \n");
 
         List<Flight> flightListA =
-                flightList.stream()
+                flightSet.stream()
                 .filter(e->e.getFrom().equals(a))
                 .filter(e->e.getTo().equals(b))
                 .collect(Collectors.toList());
 
         List<Flight> flightListB =
-                flightList.stream()
+                flightSet.stream()
                 .filter(e->e.getFrom().equals(b))
                 .filter(e->e.getTo().equals(c))
                 .collect(Collectors.toList());
