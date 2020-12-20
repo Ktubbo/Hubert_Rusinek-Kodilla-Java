@@ -19,4 +19,8 @@ public final class SimpleInvoice {
         return items.stream()
                 .collect(Collectors.summingDouble(SimpleItem::getValue));
     }
+
+    public List<SimpleItem> getItems() {
+        return items;
+    }
 }

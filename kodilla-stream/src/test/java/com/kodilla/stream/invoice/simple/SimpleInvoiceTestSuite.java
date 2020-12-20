@@ -19,5 +19,8 @@ class SimpleInvoiceTestSuite {
 
         //Then
         assertEquals(108.975, invoice.getValueToPay(), 0.001);
+        assertEquals(34.56, invoice.getItems().get(0).getValue());
+        assertEquals(41.965, invoice.getItems().get(1).getValue());
+        assertEquals(32.45, invoice.getItems().get(2).getValue());
     }
 }
