@@ -14,7 +14,7 @@ public class SudokuBoard {
     private List<SudokuSection> sudokuSectionList = new ArrayList<>();
     private boolean isSudokuProgressed = false;
     SudokuBoardCopy sudokuBoardCopy = new SudokuBoardCopy();
-    private int firstIterationCount = 0;
+    int iterationCount = 0;
 
     public SudokuBoard() {
         for (int n = 0; n < 9; n++) {
@@ -52,9 +52,6 @@ public class SudokuBoard {
         }
     }
 
-    public SudokuElement getSudokuElement(int x, int y) {
-        return board[x][y];
-    }
 
     public boolean isSudokuProgressed() {
         return isSudokuProgressed;
@@ -67,7 +64,6 @@ public class SudokuBoard {
         for(int n = 0;n<ints.size();n=n+3) {
             board[ints.get(n)-1][ints.get(n+1)-1].setNumber(ints.get(n+2));
             board[ints.get(n)-1][ints.get(n+1)-1].getPossibleNumberList().clear();
-            firstIterationCount++;
         }
     }
 
@@ -91,39 +87,27 @@ public class SudokuBoard {
     public boolean solve() throws Exception {
         isSudokuProgressed = false;
         int result=0;
+        iterationCount++;
         for (int n = 0; n < 9; n++) {
             for (int k = 0; k < 9; k++) {
-                SudokuElement element = board[n][k];
-
-                if(element.getNumber()==SudokuElement.EMPTY) {
-                    if(element.getPossibleNumberList().size()==1) {
-                        element.setNumber(element.getPossibleNumberList().get(0));
-                        element.getPossibleNumberList().clear();
+                if(board[n][k].getNumber()==SudokuElement.EMPTY) {
+                    if(board[n][k].getPossibleNumberList().size()==1) {
+                        board[n][k].setNumber(board[n][k].getPossibleNumberList().get(0));
+                        board[n][k].getPossibleNumberList().clear();
                         isSudokuProgressed = true;
                     } else {
                         List<Integer> possibleNumberListClone = new ArrayList<>();
-                        possibleNumberListClone.addAll(element.getPossibleNumberList());
+                        possibleNumberListClone.addAll(board[n][k].getPossibleNumberList());
 
                         for(int number: possibleNumberListClone) {
-                            if(containsInt(sudokuRowList.get(n).getSudokuElementList(),number)) {
-                                element.removeFromPossibleNumberList(number);
-                                isSudokuProgressed = true;
-                            } else if(containsInt(sudokuColumnList.get(k).getSudokuElementList(),number)) {
-                                element.removeFromPossibleNumberList(number);
-                                isSudokuProgressed = true;
-                            } else if(containsInt(sudokuSectionList.get(element.getSectionID()).getSudokuElementList(),number)) {
-                                element.removeFromPossibleNumberList(number);
+                            if(containsInt(n,k,number) && board[n][k].getPossibleNumberList().size()>1) {
+                                board[n][k].removeFromPossibleNumberList(number);
                                 isSudokuProgressed = true;
                             }
 
-                            if((theOnlyIntInList(sudokuRowList.get(n).getSudokuElementList(),number) ||
-                                    theOnlyIntInList(sudokuColumnList.get(k).getSudokuElementList(),number) ||
-                                            theOnlyIntInList(sudokuSectionList.get(element.getSectionID()).getSudokuElementList(),number)) &&
-                                    !(containsInt(sudokuRowList.get(n).getSudokuElementList(),number) ||
-                                            containsInt(sudokuColumnList.get(k).getSudokuElementList(),number) ||
-                                                    containsInt(sudokuSectionList.get(element.getSectionID()).getSudokuElementList(),number))) {
-                                element.setNumber(number);
-                                element.getPossibleNumberList().clear();
+                            if(theOnlyIntInList(n,k,number) && !containsInt(n,k,number)) {
+                                board[n][k].setNumber(number);
+                                board[n][k].getPossibleNumberList().clear();
                                 isSudokuProgressed = true;
                                 break;
                             }
@@ -133,53 +117,53 @@ public class SudokuBoard {
                 } else { result++; }
             }
         }
-
-        for (int n = 0; n < 9; n++) {
-            for (int k = 0; k < 9; k++) {
-                SudokuElement element = board[n][k];
-                List<Integer> possibleNumberListClone = new ArrayList<>();
-                possibleNumberListClone.addAll(element.getPossibleNumberList());
-
-                for(int number: possibleNumberListClone) {
-                    if((containsInt(sudokuRowList.get(n).getSudokuElementList(),number) &&
-                            theOnlyIntInList(sudokuRowList.get(n).getSudokuElementList(),number)) ||
-                            (containsInt(sudokuColumnList.get(k).getSudokuElementList(),number) &&
-                                    theOnlyIntInList(sudokuColumnList.get(k).getSudokuElementList(),number)) ||
-                            (containsInt(sudokuSectionList.get(element.getSectionID()).getSudokuElementList(),number) &&
-                                    theOnlyIntInList(sudokuSectionList.get(element.getSectionID()).getSudokuElementList(),number))) {
-                        throw new Exception("False sudoku");
-                    }
-                 }
-                }
-
+        if(!isSudokuProgressed && result!=81) {
+            if(!validateSudoku()) {
+                throw new Exception("False sudoku");
             }
+        }
+
         System.out.println("-------------ELEMENTS:"+result+"-------------");
+
         if(result==81) {
             return true;
         }
         return false;
     }
 
-    public boolean containsInt(List<SudokuElement> sudokuElementList, int sudokuElementNumber) {
-        return sudokuElementList.stream()
+    public boolean containsInt(int row, int column, int possibleNumber) {
+
+                return sudokuRowList.get(row).getSudokuElementList().stream()
+                .map(SudokuElement::getNumber)
+                .collect(Collectors.toList()).contains(possibleNumber) ||
+                sudokuColumnList.get(column).getSudokuElementList().stream()
+                .map(SudokuElement::getNumber)
+                .collect(Collectors.toList()).contains(possibleNumber) ||
+                sudokuSectionList.get(board[row][column].getSectionID()).getSudokuElementList().stream()
                 .map(SudokuElement::getNumber)
                 .collect(Collectors.toList())
-                .contains(sudokuElementNumber);
+                .contains(possibleNumber);
     }
 
-    public boolean theOnlyIntInList(List<SudokuElement> sudokuElementList, int possibleListNumber) {
+    public boolean theOnlyIntInList(int row, int column, int possibleListNumber) {
         int result = 0;
-        //System.out.println(sudokuElementList.toString() + " and " + possibleListNumber);
-        for(SudokuElement element: sudokuElementList) {
-            if(element.getPossibleNumberList().contains(possibleListNumber)) {
+        List<List<SudokuElement>> listOfLists = new ArrayList<>();
+        listOfLists.add(sudokuRowList.get(row).getSudokuElementList());
+        listOfLists.add(sudokuColumnList.get(column).getSudokuElementList());
+        listOfLists.add(sudokuSectionList.get(board[row][column].getSectionID()).getSudokuElementList());
+
+        for (List<SudokuElement> sudokuElementList : listOfLists) {
+            result = 0;
+        for(SudokuElement sudokuElement: sudokuElementList) {
+            if(sudokuElement.getPossibleNumberList().contains(possibleListNumber)) {
                 result++;
+                }
+            }
+            if(result==1) {
+                return true;
             }
         }
-        if(result==1) {
-            return true;
-        } else {
-            return false;
-        }
+        return false;
     }
 
     public void doAGuess() {
@@ -204,7 +188,7 @@ public class SudokuBoard {
                 SudokuElement element = new SudokuElement();
                 element.setNumber(board[n][k].getNumber());
                 element.setSectionID(board[n][k].getSectionID());
-                element.setPossibleNumberList(board[n][k].getPossibleNumberList());
+                element.getPossibleNumberList().addAll(board[n][k].getPossibleNumberList());
                 backtrack[n][k] = element;
             }
         }
@@ -212,8 +196,9 @@ public class SudokuBoard {
         deepCopy.setBacktrack(backtrack);
         sudokuBoardCopy = deepCopy;
 
-        board[coordinatesOfGuessedField[0]][coordinatesOfGuessedField[1]].setNumber(valueOfGuessedField);
-
+        if(coordinatesOfGuessedField[0]!=-1 && coordinatesOfGuessedField[1]!=-1){
+            board[coordinatesOfGuessedField[0]][coordinatesOfGuessedField[1]].setNumber(valueOfGuessedField);
+        }
     }
 
     public void restorePreviousState() {
@@ -226,6 +211,51 @@ public class SudokuBoard {
             }
         }
         board[sudokuBoardCopy.getCoordinatesOfGuessedField()[0]][sudokuBoardCopy.getCoordinatesOfGuessedField()[1]]
-                .getPossibleNumberList().remove(sudokuBoardCopy.getValueOfGuessedField());
+                .getPossibleNumberList().remove(Integer.valueOf(sudokuBoardCopy.getValueOfGuessedField()));
+    }
+
+    public boolean validateSudoku() {
+
+        for (int n = 0; n < 9; n++) {
+            for (int k = 0; k < 9; k++) {
+                if(board[n][k].getNumber()!=-1) {
+
+                    if (containsMoreThanOne(n,k)) {
+                        return false;
+                    }
+
+                    List<Integer> possibleNumberListClone = new ArrayList<>();
+                    possibleNumberListClone.addAll(board[n][k].getPossibleNumberList());
+
+                    for(int number: possibleNumberListClone) {
+                        if(containsInt(n,k,number) && theOnlyIntInList(n,k,number)) {
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
+    public boolean containsMoreThanOne(int row, int column) {
+        int result = 0;
+        List<List<SudokuElement>> listOfLists = new ArrayList<>();
+        listOfLists.add(sudokuRowList.get(row).getSudokuElementList());
+        listOfLists.add(sudokuColumnList.get(column).getSudokuElementList());
+        listOfLists.add(sudokuSectionList.get(board[row][column].getSectionID()).getSudokuElementList());
+
+        for (List<SudokuElement> sudokuElementList : listOfLists) {
+            result = 0;
+            for (int number : sudokuElementList.stream().map(SudokuElement::getNumber).collect(Collectors.toList())) {
+                if (board[row][column].getNumber() == number) {
+                    result++;
+                }
+                if (result > 1) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }
