@@ -39,10 +39,10 @@ class CompanyDaoTestSuite {
 
         //When
         companyDao.save(softwareMachine);
-        int softwareMachineId = softwareMachine.getId();
         companyDao.save(dataMaesters);
-        int dataMaestersId = dataMaesters.getId();
         companyDao.save(greyMatter);
+        int softwareMachineId = softwareMachine.getId();
+        int dataMaestersId = dataMaesters.getId();
         int greyMatterId = greyMatter.getId();
 
         //Then
@@ -51,12 +51,12 @@ class CompanyDaoTestSuite {
         assertNotEquals(0, greyMatterId);
 
         //CleanUp
-        try {
-            companyDao.deleteById(softwareMachineId);
-            companyDao.deleteById(dataMaestersId);
-            companyDao.deleteById(greyMatterId);
-        } catch (Exception e) {
+        //try {
+        //    companyDao.deleteById(softwareMachineId);
+        //    companyDao.deleteById(dataMaestersId);
+        //    companyDao.deleteById(greyMatterId);
+        //} catch (Exception e) {
             //do nothing
-        }
+        //}
     }
 }

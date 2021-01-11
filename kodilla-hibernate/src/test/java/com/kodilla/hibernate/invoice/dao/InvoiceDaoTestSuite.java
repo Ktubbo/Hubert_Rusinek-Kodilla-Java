@@ -18,10 +18,6 @@ class InvoiceDaoTestSuite {
 
     @Autowired
     private InvoiceDao invoiceDao;
-    @Autowired
-    private ProductDao productDao;
-    @Autowired
-    private ItemDao itemDao;
 
     @Test
     void testInvoiceDaoSave() {
@@ -35,10 +31,10 @@ class InvoiceDaoTestSuite {
         items.add(item2);
         Invoice invoice = new Invoice("2020.01.10-0001",items);
         //When
-        productDao.save(product1);
-        productDao.save(product2);
-        itemDao.save(item1);
-        itemDao.save(item2);
+        //productDao.save(product1);
+        //productDao.save(product2);
+        //itemDao.save(item1);
+        //itemDao.save(item2);
         invoiceDao.save(invoice);
         //Then
         int id = invoice.getId();
@@ -47,9 +43,7 @@ class InvoiceDaoTestSuite {
         //Clean up
 
         try {
-            productDao.deleteAll();
-            itemDao.deleteAll();
-            invoiceDao.deleteAll();
+            invoiceDao.deleteById(invoice.getId());
 
         } catch (Exception e) {
             //do nothing

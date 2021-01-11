@@ -55,14 +55,16 @@ public class Employee {
     }
 
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "JOIN?COMPANY_EMPLOYEE",
+    @JoinTable(
+            name = "JOIN?COMPANY_EMPLOYEE",
             joinColumns = {@JoinColumn(name = "EMPLOYEE_ID", referencedColumnName = "EMPLOYEE_ID")},
-            inverseJoinColumns = {@JoinColumn(name = "COMPANY_ID", referencedColumnName = "COMPANY_ID")})
-    public List<Company> getCompanies() {
-        return companies;
-    }
+                    inverseJoinColumns = {@JoinColumn(name = "COMPANY_ID", referencedColumnName = "COMPANY_ID")}
+            )
+            public List<Company> getCompanies() {
+            return companies;
+            }
 
-    public void setCompanies(List<Company> companies) {
-        this.companies = companies;
-    }
+            public void setCompanies(List < Company > companies){
+            this.companies=companies;
+            }
 }
