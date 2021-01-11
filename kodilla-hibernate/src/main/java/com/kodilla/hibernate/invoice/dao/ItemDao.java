@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import javax.transaction.Transactional;
 import java.util.List;
 
-//@Transactional
+@Transactional
 @Repository
 public interface ItemDao extends CrudRepository<Item,Integer> {
     List<Item> findById(int id);
