@@ -8,5 +8,4 @@ import javax.transaction.Transactional;
 @Transactional
 @Repository
 public interface CompanyDao extends CrudRepository<Company, Integer> {
-
 }

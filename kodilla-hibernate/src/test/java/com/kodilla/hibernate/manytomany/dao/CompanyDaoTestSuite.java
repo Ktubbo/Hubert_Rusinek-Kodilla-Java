@@ -39,10 +39,10 @@ class CompanyDaoTestSuite {
 
         //When
         companyDao.save(softwareMachine);
-        companyDao.save(dataMaesters);
-        companyDao.save(greyMatter);
         int softwareMachineId = softwareMachine.getId();
+        companyDao.save(dataMaesters);
         int dataMaestersId = dataMaesters.getId();
+        companyDao.save(greyMatter);
         int greyMatterId = greyMatter.getId();
 
         //Then
@@ -56,7 +56,7 @@ class CompanyDaoTestSuite {
         //    companyDao.deleteById(dataMaestersId);
         //    companyDao.deleteById(greyMatterId);
         //} catch (Exception e) {
-            //do nothing
+        //    //do nothing
         //}
     }
 }

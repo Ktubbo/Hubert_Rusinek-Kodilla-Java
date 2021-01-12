@@ -64,7 +64,7 @@ public class Employee {
             return companies;
             }
 
-            public void setCompanies(List < Company > companies){
-            this.companies=companies;
-            }
+    public void setCompanies(List<Company> companies) {
+        this.companies = companies;
+    }
 }
