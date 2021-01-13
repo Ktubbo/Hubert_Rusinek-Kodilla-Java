@@ -7,8 +7,8 @@ import java.util.List;
 
 @NamedNativeQuery(
         name = "Company.findBy3Char",
-        query = "SELECT * FROM COMPANIES"
-                + "WHERE "
+        query = "SELECT * FROM kodilla_course.companies WHERE LEFT(COMPANY_NAME,3) = :THREECHAR",
+        resultClass = Company.class
 )
 @Entity
 @Table(name = "COMPANIES")
@@ -54,5 +54,10 @@ public class Company {
 
     public void setEmployees(List<Employee> employees) {
         this.employees = employees;
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }
