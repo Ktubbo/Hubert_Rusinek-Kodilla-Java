@@ -1,0 +1,12 @@
+{
+	"model":"Magic Iris",
+	"brand":"Tata",
+	"charis":[
+    	{ "material":"Leather", "color":"Black" },
+    	{ "material":"Poliethylene", "color":"White" },
+    	{ "material":"Linen", "color":"Green" },
+	{ "material":"Wool", "color":"Blue" },
+  	]
+	"volume":"0.61"
+}
+		
