@@ -20,7 +20,7 @@ public class Product {
     }
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @NotNull
     @Column(name = "PRODUCT_ID", unique = true)
     public int getId() {

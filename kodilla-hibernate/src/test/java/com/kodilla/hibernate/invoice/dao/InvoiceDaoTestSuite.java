@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +20,7 @@ class InvoiceDaoTestSuite {
     @Autowired
     private InvoiceDao invoiceDao;
 
+    @Transactional
     @Test
     void testInvoiceDaoSave() {
         //Given
@@ -29,16 +31,16 @@ class InvoiceDaoTestSuite {
         List<Item> items = new ArrayList<>();
         items.add(item1);
         items.add(item2);
-        Invoice invoice = new Invoice("2020.01.10-0001",items);
+        Invoice invoice = new Invoice("2020.01.10-0001", items);
         //When
-        //productDao.save(product1);
-        //productDao.save(product2);
-        //itemDao.save(item1);
-        //itemDao.save(item2);
         invoiceDao.save(invoice);
         //Then
+
         int id = invoice.getId();
         List<Invoice> readInvoice = invoiceDao.findById(id);
+        assertEquals(2,readInvoice.get(0).getItems().size());
+        assertEquals("Product 1",readInvoice.get(0).getItems().get(0).getProduct().getName());
+        assertEquals("Product 2",readInvoice.get(0).getItems().get(1).getProduct().getName());
         assertEquals(1,readInvoice.size());
         //Clean up
 

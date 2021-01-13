@@ -5,6 +5,11 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
+@NamedNativeQuery(
+        name = "Company.findBy3Char",
+        query = "SELECT * FROM COMPANIES"
+                + "WHERE "
+)
 @Entity
 @Table(name = "COMPANIES")
 public class Company {
