@@ -14,4 +14,6 @@ public interface CompanyDao extends CrudRepository<Company, Integer> {
 
     @Query
     List<Company> findBy3Char(@Param("THREECHAR") String threeChar);
+    @Query
+    List<Company> findByField(@Param(("FIELD")) String field);
 }

@@ -10,6 +10,10 @@ import java.util.List;
         query = "SELECT * FROM kodilla_course.companies WHERE LEFT(COMPANY_NAME,3) = :THREECHAR",
         resultClass = Company.class
 )
+@NamedQuery(
+        name = "Company.findByField",
+        query = "FROM Company c WHERE c.name LIKE CONCAT('%', :FIELD, '%')"
+)
 @Entity
 @Table(name = "COMPANIES")
 public class Company {
