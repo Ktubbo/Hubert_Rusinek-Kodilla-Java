@@ -63,7 +63,6 @@ class ShopServiceTestSuite {
     @Autowired
     private OrderFacade orderFacade;
 
-
     @Test
     public void testShopFacade() {
         OrderDto order = new OrderDto();
