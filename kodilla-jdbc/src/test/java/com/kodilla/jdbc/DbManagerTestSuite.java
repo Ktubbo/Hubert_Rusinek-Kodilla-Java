@@ -9,7 +9,6 @@ import java.sql.Statement;
 import static org.junit.jupiter.api.Assertions.*;
 
 class DbManagerTestSuite {
-
     @Test
     void testConnect() throws SQLException {
         //Given
@@ -39,7 +38,7 @@ class DbManagerTestSuite {
         }
         rs.close();
         statement.close();
-        assertEquals(4, counter);
+        assertEquals(5, counter);
     }
 
     @Test
@@ -66,7 +65,7 @@ class DbManagerTestSuite {
         }
         rs.close();
         statement.close();
-        assertEquals(1,counter);
+        assertEquals(2,counter);
 
     }
 }
